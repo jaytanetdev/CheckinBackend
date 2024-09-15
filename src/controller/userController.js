@@ -26,7 +26,7 @@ exports.getUser = (req, res) => {
     if (type === "all") {
         sql = `SELECT * FROM users WHERE type='0'`;
     } else {
-        sql = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`
+        sql = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}' AND active= TRUE `
     }
     if (startDate && endDate) {
         sql += ` AND create_at BETWEEN '${startDate}' AND '${endDate}'`;
@@ -95,7 +95,6 @@ exports.updateUserById = (req, res) => {
         sql += ` , username='${username}' `;
     }
     sql += ` WHERE user_id = '${userId}'`;
-    console.log(sql)
     pool.query(sql)
         .then(results => {
             res.status(200).send(results.rows);

@@ -89,6 +89,19 @@ exports.getLocationById = (req, res) => {
             res.status(500).json({ error: 'Internal server error' });
         });
 };
+exports.getLocationCheckin = (req, res) => {
+    let sql = `SELECT * FROM location_checkin WHERE lo_active = TRUE ORDER BY lo_id ASC LIMIT 1`;
+
+    pool.query(sql)
+        .then(results => {
+            // ส่งข้อมูลผู้ใช้กลับไปยัง client ในรูปแบบ JSON
+            res.status(200).json(results.rows);
+        })
+        .catch(error => {
+            console.error('Error executing query:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        });
+};
 
 exports.updateLocationById = (req, res) => {
     const { id } = req.params;

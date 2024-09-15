@@ -60,11 +60,7 @@ exports.getAdvertHomePage = (req, res) => {
 };
 exports.getAdvertHomePageById = (req, res) => {
     const advId = req.params.advId;
-
-
     let sql = `SELECT * FROM advert WHERE adv_id = '${advId}'  `;
-
-    console.log(sql)
     pool.query(sql)
         .then(results => {
             res.status(200).json(results.rows);
